@@ -683,7 +683,9 @@ class Website(models.Model):
             yield record
 
     @api.multi
-    def get_website_pages(self, domain=[], order='name', limit=None):
+    def get_website_pages(self, domain=None, order='name', limit=None):
+        if domain is None:
+            domain = []
         domain += self.get_current_website().website_domain()
         pages = self.env['website.page'].search(domain, order='name', limit=limit)
         return pages
